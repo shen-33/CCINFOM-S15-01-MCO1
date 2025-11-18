@@ -92,6 +92,7 @@ public class MovieDAO {
             statement.setObject(7, movie.getShowDate());
             statement.setObject(8, movie.getTimeSlot());
 
+            // update
             statement.executeUpdate();
 
         } catch (SQLException e) {
