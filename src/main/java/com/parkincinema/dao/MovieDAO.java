@@ -41,6 +41,7 @@ public class MovieDAO {
                 LocalDateTime timeSlot = result.getObject("timeSlots", LocalDateTime.class);
                 // set both to movie object
                 movie.setShowDate(showDate);
+                movie.setTimeSlot(timeSlot);
 
                 allMovies.add(movie);
             }
@@ -69,5 +70,46 @@ public class MovieDAO {
             }
         }
         return allMovies;
+    }
+
+    // Add a new movie (CREATE)
+    public void addMovie(Movie movie) {
+        String sqlPrompt = "INSERT INTO Movie (movie_id, movie_title, price, genre, rating, duration, showDates, timeSlots) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            connection = DBConnection.getConnection();
+            statement = connection.prepareStatement(sqlPrompt);
+
+            statement.setInt(1, movie.getMovieId());
+            statement.setString(2, movie.getMovieTitle());
+            statement.setDouble(3, movie.getPrice());
+            statement.setString(4, movie.getGenre());
+            statement.setFloat(5, movie.getRating());
+            statement.setInt(6, movie.getDuration());
+            statement.setObject(7, movie.getShowDate());
+            statement.setObject(8, movie.getTimeSlot());
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // closing statement
+            try {
+                if (statement != null) statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            // closing connection
+            try {
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
