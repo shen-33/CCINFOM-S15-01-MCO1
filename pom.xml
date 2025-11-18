@@ -23,7 +23,6 @@
     </dependencies>
 
     <build>
-        <sourceDirectory>backend</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
