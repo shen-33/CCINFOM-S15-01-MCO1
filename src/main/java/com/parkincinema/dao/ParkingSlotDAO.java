@@ -70,4 +70,48 @@ public class ParkingSlotDAO {
 
         return availableSlots;
     }
+
+    // Read slot by ID
+    public ParkingSlot getSlotById(int slotId) {
+        String sql = "SELECT * FROM ParkingSlot WHERE slot_id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, slotId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                ParkingSlot slot = new ParkingSlot();
+                slot.setSlotId(rs.getInt("slot_id"));
+                slot.setSlotNo(rs.getInt("slot_no"));
+                slot.setStatus(rs.getInt("status"));
+                slot.setCinemaId(rs.getInt("Cinema_cinema_id"));
+                return slot;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    // Update the status of the slot
+    public boolean updateSlotStatus(int slotId, int status) {
+        String sql = "UPDATE ParkingSlot SET status=? WHERE slot_id=?";
+
+        try (Connection conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, status);
+            stmt.setInt(2, slotId);
+
+            return stmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

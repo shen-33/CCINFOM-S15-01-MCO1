@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import java.util.ArrayList;
+
 public class CustomerDAO {
 
     // Insert a new customer and return ID (CREATE)
@@ -65,6 +67,67 @@ public class CustomerDAO {
             }
         }
         return generatedId;
+    }
+
+    // Update customer details
+    public boolean updateCustomer(Customer customer) {
+        String sql = "UPDATE Customer SET last_name = ?, first_name = ?, phoneNo = ?, car_plate = ? WHERE customer_id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, customer.getLastName());
+            stmt.setString(2, customer.getFirstName());
+            stmt.setString(3, customer.getPhoneNo());
+            stmt.setString(4, customer.getCarPlate());
+            stmt.setInt(5, customer.getCustomerId());
+
+            return stmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Delete existing customers
+    public boolean deleteCustomer(int id) {
+        String sql = "DELETE FROM Customer WHERE customer_id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            return stmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public List<Customer> getAllCustomers() {
+        List<Customer> list = new ArrayList<>();
+        String sql = "SELECT * FROM Customer";
+
+        try (Connection conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Customer c = new Customer();
+                c.setCustomerId(rs.getInt("customer_id"));
+                c.setLastName(rs.getString("last_name"));
+                c.setFirstName(rs.getString("first_name"));
+                c.setPhoneNo(rs.getString("phoneNo"));
+                c.setCarPlate(rs.getString("car_plate"));
+                list.add(c);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     // Find customer by ID (READ)

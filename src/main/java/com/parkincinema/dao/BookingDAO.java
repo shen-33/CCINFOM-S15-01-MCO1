@@ -138,4 +138,42 @@ public class BookingDAO {
         }
         return booking;
     }
+
+    // Cancel an exisiting booking
+    public boolean cancelBooking(int bookingId) {
+        String sql = "UPDATE Booking SET order_status = 0 WHERE booking_id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, bookingId);
+            return stmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Checking method to see if it was already booked to avoid double booking
+    public boolean customerAlreadyBooked(int customerId, LocalDateTime timeSlot) {
+        String sql = "SELECT COUNT(*) FROM Booking WHERE Customer_customer_id = ? AND time_slot = ? AND order_status = 1";
+
+        try (Connection conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, customerId);
+            stmt.setObject(2, timeSlot);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 }
