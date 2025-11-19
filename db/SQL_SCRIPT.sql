@@ -128,6 +128,11 @@ INSERT INTO `Movie` (`movie_id`, `movie_title`, `price`, `genre`, `rating`, `dur
 (10, 'A Quiet Place: Day One', 320.00, 'Horror', 4.5, 100, '2025-01-20 20:00:00', '2025-01-20 20:00:00');
 
 INSERT INTO `Cinema` (`cinema_id`, `name`, `location`, `total_slots`) VALUES
+(1, 'Starlight Drive-In', 'Downtown Manila', 50),
+(2, 'Moonwalk Cinema', 'Pasay City', 80),
+(3, 'Galaxy Park', 'Quezon City', 100);
+
+INSERT INTO `Customer` (`customer_id`, `last_name`, `first_name`, `phoneNo`, `car_plate`) VALUES
 (1, 'Santos', 'Juan', '09171111111', 'ABC1234'),
 (2, 'Reyes', 'Maria', '09172222222', 'DEF5678'),
 (3, 'Cruz', 'Jose', '09173333333', 'GHI9012'),
@@ -138,11 +143,6 @@ INSERT INTO `Cinema` (`cinema_id`, `name`, `location`, `total_slots`) VALUES
 (8, 'Ocampo', 'Sarah', '09178888888', 'VWX9012'),
 (9, 'Flores', 'Michael', '09179999999', 'YZA3456'),
 (10, 'Gonzales', 'Patricia', '09170000000', 'BCD7890');
-
-INSERT INTO `Customer` (`customer_id`, `last_name`, `first_name`, `phoneNo`, `car_plate`) VALUES
-(1, 'Starlight Drive-In', 'Downtown Manila', 50),
-(2, 'Moonwalk Cinema', 'Pasay City', 80),
-(3, 'Galaxy Park', 'Quezon City', 100);
 
 -- (it depends on Cinema)
 INSERT INTO `ParkingSlot` (`slot_id`, `slot_no`, `status`, `Cinema_cinema_id`) VALUES
