@@ -50,21 +50,24 @@ public class MovieDAO {
         } finally {
             // closing result
             try {
-                if (result != null) result.close();
+                if (result != null)
+                    result.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
 
             // closing statement
             try {
-                if (statement != null) statement.close();
+                if (statement != null)
+                    statement.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
 
             // closing connection
             try {
-                if (connection != null) connection.close();
+                if (connection != null)
+                    connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -100,14 +103,16 @@ public class MovieDAO {
         } finally {
             // closing statement
             try {
-                if (statement != null) statement.close();
+                if (statement != null)
+                    statement.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
 
             // closing connection
             try {
-                if (connection != null) connection.close();
+                if (connection != null)
+                    connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }

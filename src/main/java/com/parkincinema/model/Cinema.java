@@ -14,6 +14,10 @@ public class Cinema {
         this.totalSlots = totalSlots;
     }
 
+    public Cinema() {
+
+    }
+
     // getters and setters
     public int getCinemaId() {
         return cinemaId;
