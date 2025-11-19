@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DBConnection {
 
     // database name
-    private static final String URL = "jdbc:mysql://localhost:3306/parkin_db"; // named the schema as "parkin_db", just replace if you have your own
+    private static final String URL = "jdbc:mysql://localhost:3306/ccinfom_s15_01"; // named the schema as "parkin_db", just replace if you have your own
 
     // database credentials
     private static final String USER = "root";
