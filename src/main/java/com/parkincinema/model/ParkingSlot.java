@@ -4,7 +4,7 @@ public class ParkingSlot {
 
     private int slotId;
     private int slotNo;
-    private int status;
+    private int status; // 0 if available, 1 if occupied
     private int cinemaId; // FK
 
     public ParkingSlot() {
